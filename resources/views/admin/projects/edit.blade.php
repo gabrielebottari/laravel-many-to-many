@@ -27,13 +27,24 @@
         </div>
 
         <div class="mb-3">
-            <label for="type_id" class="form-label">Tecnologia</label>
+            <label for="type_id" class="form-label">Linguaggi</label>
             <select name="type_id" class="form-select">
-                <option value="">Select Technology</option>
+                <option value="">Select Language</option>
                 @foreach ($types as $type)
                     <option value="{{ $type->id }}" {{ (old('type_id', $project->type_id ?? '') == $type->id) ? 'selected' : '' }}>{{ $type->name }}</option>
                 @endforeach
             </select> 
+        </div>
+
+        <div class="mb-3">
+            <label for="technologies">Tecnologie:</label>
+            <div class="d-flex">
+                @foreach($technologies as $technology)
+                    <span class="pe-1">{{ $technology->name }}</span>
+                    <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" class="me-3"
+                        {{ in_array($technology->id, $selectedTechnologies) ? 'checked' : '' }}>
+                @endforeach
+            </div>
         </div>
         
         <div class="mb-3">

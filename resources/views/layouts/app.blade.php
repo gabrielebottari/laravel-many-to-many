@@ -34,7 +34,10 @@
                                 <a class="nav-link" href="{{ route('admin.projects.create') }}">Nuovo Progetto <i class="fa-solid fa-plus"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.types.index') }}">Tecnologie <i class="fa-solid fa-microchip"></i></a>
+                                <a class="nav-link" href="{{ route('admin.types.index') }}">Linguaggi <i class="fa-solid fa-file-code"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.technologies.index') }}">Tecnologie <i class="fa-solid fa-microchip"></i></a>
                             </li>
                         </ul>
                         <form method="POST" action="{{ route('logout') }}">

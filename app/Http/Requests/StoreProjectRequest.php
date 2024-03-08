@@ -27,6 +27,8 @@ class StoreProjectRequest extends FormRequest
             'description' => 'required|string',
             'date' => 'required|date',
             'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|array',
+            'technologies.*' => 'exists:technologies,id',
         ];
     }
 }

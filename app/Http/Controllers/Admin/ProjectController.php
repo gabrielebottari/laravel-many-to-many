@@ -10,6 +10,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 // Models
 use App\Models\Project;
@@ -48,11 +49,20 @@ class ProjectController extends Controller
     {
         // La validazione è già avvenuta, quindi possiamo procedere al salvataggio
         $validated = $request->validated();
-
+    
+        // Genera lo slug a partire dal titolo
         $validated['slug'] = Str::slug($validated['title']);
-
-        Project::create($validated);
-
+    
+        // Rimuovi 'technologies' dall'array validato prima di creare il progetto
+        // per evitare errori di colonna inesistente durante la creazione
+        $projectData = Arr::except($validated, ['technologies']);
+        $project = Project::create($projectData);
+    
+        // Controlla se sono state selezionate delle tecnologie e associale al progetto
+        if (isset($validated['technologies'])) {
+            $project->technologies()->sync($validated['technologies']);
+        }
+    
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully.');
     }
 
@@ -74,16 +84,25 @@ class ProjectController extends Controller
         $project = Project::where('slug', $slug)->firstOrFail();
         $types = Type::all();
         $technologies= Technology::all();
+        $selectedTechnologies = $project->technologies()->pluck('technology_id')->toArray();
 
-        return view('admin.projects.edit', compact('project', 'types','technologies'));
+        return view('admin.projects.edit', compact('project', 'types','technologies', 'selectedTechnologies'));
     }
   
     public function update(UpdateProjectRequest $request, Project $project)
     {
-
         // Anche qui, la validazione è avvenuta
         $validated = $request->validated();
-        $project->update($validated);
+        
+        // Aggiorna il progetto con i dati validati, escludendo esplicitamente 'technologies'
+        // se hai incluso altre logiche di validazione per 'technologies' nella tua Form Request
+        $projectData = Arr::except($validated, ['technologies']);
+        $project->update($projectData);
+        
+        // Gestisci l'associazione delle tecnologie, se presenti
+        // Se 'technologies' non è presente o è vuoto, 'sync' rimuoverà tutte le associazioni
+        $project->technologies()->sync($validated['technologies'] ?? []);
+    
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully.');
     }
 

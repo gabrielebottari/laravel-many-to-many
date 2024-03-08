@@ -10,7 +10,6 @@ use App\Http\Requests\UpdateTypeRequest;
 
 use Illuminate\Support\Str;
 
-
 use App\Models\Type;
 
 class TypeController extends Controller
