@@ -7,6 +7,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\TypeController as AdminTypeController;
+use App\Http\Controllers\Admin\TechnologyController as AdminTechnologyController;
 use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 
 /*
@@ -39,6 +40,7 @@ Route::prefix('admin')
     //rotta che gestisce i progetti
     Route::resource('projects', AdminProjectController::class);
     Route::resource('types', AdminTypeController::class);
+    Route::resource('technologies', AdminTechnologyController::class);
 });
 
 require __DIR__.'/auth.php';
