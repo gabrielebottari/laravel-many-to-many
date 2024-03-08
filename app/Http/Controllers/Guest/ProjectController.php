@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Exception;
 
-
-
+use App\Models\Technology;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -31,6 +31,13 @@ class ProjectController extends Controller
         $project = Project::where('slug', $slug)->firstOrFail();
 
         return view('guest.projects.show', compact('project'));
+    }
+
+    public function welcome()
+    {
+        $technologies = Technology::all(); // Assicurati che questo corrisponda al tuo modello e alla tabella
+        $types = Type::all(); // Lo stesso vale per i tipi
+        return view('guest.welcome', compact('technologies', 'types'));
     }
 
 }
