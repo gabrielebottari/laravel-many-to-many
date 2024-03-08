@@ -1,0 +1,35 @@
+@import "~bootstrap/scss/bootstrap";
+
+main {
+    background-color: azure;
+}
+
+.card {
+    height: 600px;
+    border: none;
+
+    img {
+        max-height: 300px;
+    }
+
+    .card-body{
+
+            overflow-y: auto; // Abilita la barra di scorrimento verticale se necessario
+            height: 200px; // Imposta un'altezza massima per la sezione info
+        
+            &::-webkit-scrollbar {
+                width: 5px; // Larghezza della barra di scorrimento per Chrome, Safari e altri browser WebKit
+            }
+        
+            &::-webkit-scrollbar-thumb {
+                background: darken($color: #aaa, $amount: 20%); // Colore della barra di scorrimento
+                border-radius: 10px; // Arrotonda gli angoli della barra di scorrimento
+            }
+        
+            &::-webkit-scrollbar-track {
+                background: lighten($color: #aaa, $amount: 20%); // Colore dello sfondo della traccia della barra di scorrimento
+            }
+        
+        }
+
+}
