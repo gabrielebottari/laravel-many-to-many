@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 // Models
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 
 
 class ProjectController extends Controller
@@ -35,8 +36,9 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $types = Type::all();
+        $technologies= Technology::all();
 
-        return view('admin.projects.create', compact('project', 'types'));
+        return view('admin.projects.create', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -71,12 +73,14 @@ class ProjectController extends Controller
     {
         $project = Project::where('slug', $slug)->firstOrFail();
         $types = Type::all();
+        $technologies= Technology::all();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types','technologies'));
     }
   
     public function update(UpdateProjectRequest $request, Project $project)
     {
+
         // Anche qui, la validazione è avvenuta
         $validated = $request->validated();
         $project->update($validated);

@@ -10,23 +10,23 @@ class TypeSeeder extends Seeder
 {
     public function run()
     {
-        $languages = [
-            'PHP',
-            'JavaScript',
-            'Python',
-            'Java',
-            'C#',
-            'Ruby',
-            'Go',
-            'Swift',
-            'Kotlin',
-            'Rust'
+        $types = [
+            'Mobile',
+            'Web',
+            'OS',
+            'Games',
+            'App',
+            'Driver',
+            'IA',
+            'Software',
+            'Machine Learning',
+            'Big Data'
         ];
 
-        foreach ($languages as $language) {
+        foreach ($types as $type) {
             DB::table('types')->insert([
-                'name' => $language,
-                'slug' => Str::slug($language),
+                'name' => $type,
+                'slug' => Str::slug($type),
             ]);
         }
     }

@@ -17,6 +17,13 @@
                             @if ($project->type)
                                 <p class="px-2">Technology: {{ $project->type->name }}</p>
                             @endif
+                            <div class="px-2">
+                                @forelse ($project->technologies as $technology)
+                                    <span class="badge text-bg-primary">{{ $technology->name }}</span>
+                                @empty
+                                    <p>-</p>
+                                @endforelse
+                            </div> 
                             <div class="card-body m-2">
                                 <p class="card-text">{{ $project->description }}</p>
                                 <p class="card-text"><small class="text-muted">{{ $project->date }}</small></p>
