@@ -15,8 +15,7 @@ class StoreTechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:technologies,name|max:255',
-            
+            'name' => 'required|string|max:255|unique:technologies,name,' . $this->route('technology') . '|max:255',
         ];
     }
 }

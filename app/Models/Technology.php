@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Technology extends Model
 {
-    protected $fillable = ['name','slug','project_id'];
+    protected $fillable = ['name','slug'];
 
     public function getRouteKeyName()
     {

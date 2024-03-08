@@ -8,7 +8,7 @@
         <div class="col-6">
             <h2 class="text-primary">Tecnologie</h2>
 
-            <a href="{{ route('admin.types.create') }}" class="btn btn-primary mb-3">Aggiungi Tecnologie <i class="fa-solid fa-plus"></i></a>
+            <a href="{{ route('admin.technologies.create') }}" class="btn btn-primary mb-3">Aggiungi Tecnologie <i class="fa-solid fa-plus"></i></a>
 
             <table class="table table-bordered table-striped table-primary table-hover">
                 <thead>
@@ -29,7 +29,7 @@
                                 <form action="{{ route('admin.technologies.destroy', $technology->slug) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questa tipologia?');">Elimina <i class="fa-solid fa-trash-can"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questa tecnologia?');">Elimina <i class="fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         </tr>

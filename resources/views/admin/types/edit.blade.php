@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('page-title', 'Modifica Tecnologia')
+@section('page-title', 'Modifica Linguaggio')
 
 @section('main-content')
 <div class="container">
-    <h2>Modifica Tipo</h2>
+    <h2 class="text-primary">Modifica Tipo</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">

@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateTechnologyRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Technology;
 
@@ -31,7 +32,7 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        $types = Technology::all();
+        $technologies = Technology::all();
         return view('admin.technologies.create', compact('technologies'));
     }
 
@@ -66,21 +67,21 @@ class TechnologyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTechnologyRequest $request, Technology $technologies)
+    public function update(UpdateTechnologyRequest $request, Technology $technology)
     {
         $validated = $request->validated();
     
-        $technologies->update($validated);
+        $technology->update($validated);
     
-        return redirect()->route('admin.technologies.index',['technology'=>$technologies->slug])->with('success', 'Tecnologia aggiornata con successo.');
+        return redirect()->route('admin.technologies.index')->with('success', 'Tecnologia aggiornata con successo.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Technology $technologies)
+    public function destroy(Technology $technology)
     {
-        $technologies->delete();
+        $technology->delete();
     
         return redirect()->route('admin.technologies.index')->with('success', 'Tipo eliminato con successo.');
     }

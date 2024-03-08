@@ -19,10 +19,16 @@ class UpdateTechnologyRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:technologies,name,' . $this->technology->id . '|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                \Illuminate\Validation\Rule::unique('technologies')->ignore($this->technology),
+            ],
         ];
     }
 }
