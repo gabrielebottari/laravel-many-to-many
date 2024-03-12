@@ -49,15 +49,17 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $validated['image'] = $request->image->store('project-images', 'public');
-        }
 
         // La validazione è già avvenuta, quindi possiamo procedere al salvataggio
         $validated = $request->validated();
     
         // Genera lo slug a partire dal titolo
         $validated['slug'] = Str::slug($validated['title']);
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Aggiorna l'array validato con il percorso del file immagine
+            $validated['image'] = $request->image->store('project-images', 'public');
+        }
     
         // Rimuovi 'technologies' dall'array validato prima di creare il progetto
         // per evitare errori di colonna inesistente durante la creazione
@@ -97,12 +99,19 @@ class ProjectController extends Controller
   
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $validated['image'] = $request->image->store('project-images', 'public');
-        }
 
         // Anche qui, la validazione è avvenuta
         $validated = $request->validated();
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Elimina l'immagine esistente se presente
+            if ($project->image && Storage::disk('public')->exists($project->image)) {
+                Storage::disk('public')->delete($project->image);
+            }
+    
+            // Salva la nuova immagine e aggiorna il percorso dell'immagine nel database
+            $validated['image'] = $request->image->store('project-images', 'public');
+        }
         
         // Aggiorna il progetto con i dati validati, escludendo esplicitamente 'technologies'
         // se hai incluso altre logiche di validazione per 'technologies' nella tua Form Request
@@ -122,6 +131,11 @@ class ProjectController extends Controller
     public function destroy($slug)
     {
         $project = Project::where('slug', $slug)->firstOrFail();
+
+        if ($project->image && Storage::disk('public')->exists($project->image)) {
+            Storage::disk('public')->delete($project->image);
+        }
+
         $project->delete();
     
         return redirect()->route('admin.projects.index')->with('success', 'Progetto eliminato con successo!');

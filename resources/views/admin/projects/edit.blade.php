@@ -46,11 +46,16 @@
                 @endforeach
             </div>
         </div>
-        
+
         <div class="mb-3">
+            <label for="image" class="form-label">Immagine</label>
+            <input class="form-control" type="file" id="image" name="image">
+        </div>
+        
+        {{--         <div class="mb-3">
             <label for="image" class="form-label">URL dell'immagine</label>
             <input type="text" class="form-control" id="image" name="image" value="{{ old('image', $project->image) }}">
-        </div>
+        </div> --}}
 
         <div class="mb-3">
             <label for="description" class="form-label">Descrizione</label>
