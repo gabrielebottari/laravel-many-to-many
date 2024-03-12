@@ -7,7 +7,10 @@
     <div class="d-flex justify-content-center p-3">
 
         <div class="card mb-3 w-50 h-100">
-            <img src="{{ $project->image }}" class="card-img-top" alt="{{ $project->title }}">
+            {{-- <img src="{{ $project->image }}" class="card-img-top" alt="{{ $project->title }}"> --}}
+            @if ($project->image)
+                <img src="{{ strpos($project->image, 'http') === 0 ? $project->image : asset('storage/' . $project->image) }}" alt="Immagine di {{ $project->title }}">
+            @endif
             <h5 class="card-title p-2">{{ $project->title }}</h5>
             <div class="px-2">
                 @forelse ($project->technologies as $technology)

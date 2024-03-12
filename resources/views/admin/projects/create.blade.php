@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.projects.store') }}">
+    <form method="POST" action="{{ route('admin.projects.store') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- Campi del form qui -->

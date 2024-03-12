@@ -30,10 +30,16 @@ class ProjectSeeder extends Seeder
         }
 
         foreach (range(1, 12) as $index) {
+
+            $localImagePath = ''; 
+
+            //Utilizza l'immagine locale se disponibile; altrimenti, usa un'immagine di Faker
+            $imagePath = $localImagePath ?: $faker->imageUrl(640, 480, 'projects', true);
+
             DB::table('projects')->insert([
                 'title' => $faker->sentence(6, true), // Genera un titolo fittizio
                 'slug' => Str::slug($faker->unique()->sentence(6, true), '-'), // Genera uno slug univoco
-                'image' => $faker->imageUrl(640, 480, 'projects', true), // Genera un URL di immagine fittizio
+                'image' => $imagePath,
                 'description' => $faker->paragraphs(asText: true), // Genera una descrizione fittizia
                 'date' => $faker->date(), // Genera una data fittizia
                 'type_id' => $types->random(),

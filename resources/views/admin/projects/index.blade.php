@@ -12,7 +12,10 @@
                     <a href="{{ route('admin.projects.show', $project->slug) }}" class="text-decoration-none text-dark">
                         <div class="card mb-3">
                             
-                            <img src="{{ $project->image }}" class="card-img-top" alt="{{ $project->title }}">
+                            {{-- <img src="{{ $project->image }}" class="card-img-top" alt="{{ $project->title }}"> --}}
+                            @if ($project->image_path)
+                                <img src="{{ strpos($project->image, 'http') === 0 ? $project->image_path : asset('storage/' . $project->image) }}" alt="Immagine di {{ $project->title }}">
+                            @endif
                             <h5 class="card-title p-2">{{ $project->title }}</h5>
                             @if ($project->type)
                                 <p class="px-2">Technology: {{ $project->type->name }}</p>

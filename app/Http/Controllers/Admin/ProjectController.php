@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 //importazione controller
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -47,6 +49,10 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $validated['image'] = $request->image->store('project-images', 'public');
+        }
+
         // La validazione è già avvenuta, quindi possiamo procedere al salvataggio
         $validated = $request->validated();
     
@@ -91,6 +97,10 @@ class ProjectController extends Controller
   
     public function update(UpdateProjectRequest $request, Project $project)
     {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $validated['image'] = $request->image->store('project-images', 'public');
+        }
+
         // Anche qui, la validazione è avvenuta
         $validated = $request->validated();
         

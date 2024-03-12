@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
+
 
 class StoreProjectRequest extends FormRequest
 {
@@ -23,7 +25,8 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'image' => 'nullable|url|max:255',
+            //'image' => 'nullable|url|max:255',
+            'image' => 'nullable|image|max:2048',
             'description' => 'required|string',
             'date' => 'required|date',
             'type_id' => 'nullable|exists:types,id',
